@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CodingTracker.Database
 {
-    internal class TrackerDB
+    public class TrackerDB
     {
         private readonly string _connectionString;
 
@@ -33,7 +33,7 @@ namespace CodingTracker.Database
             }
         }
 
-        public void InsertCodingSession(CodingSessionModel request)
+        public void InsertCodingSession(TimeSession request)
         {
             string sql = @"INSERT into CodingSessions(StartTime, EndTime, Duration) VALUES (@startTime, @endTime, @duration);";
             using (var connection = new SqlConnection(_connectionString))
