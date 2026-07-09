@@ -25,10 +25,13 @@ namespace CodingTracker.Service
             {
                 TimeSession times = (TimeSession)_userValidation.ValidateUserInputTime();
                 _trackerDB.InsertCodingSession(times);
+                AnsiConsole.MarkupLine("[green]Coding session inserted successfully![/]");
+                
+
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occured during the Insertion {ex.Message}");
+                AnsiConsole.MarkupLine($"[red]An error occured during the Insertion {ex.Message}[/]");
             }
         }
 
@@ -43,7 +46,7 @@ namespace CodingTracker.Service
                 table.AddColumn(new TableColumn("[bold]ID[/]").Centered());
                 table.AddColumn(new TableColumn("[bold]StartTime[/]").Centered());
                 table.AddColumn(new TableColumn("[bold]EndTime[/]").Centered());
-                table.AddColumn(new TableColumn("[bold]Date[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]Duration(hrs)[/]").Centered());
                 foreach (var list in sessionList)
                 {
                     foreach (var session in list)
@@ -57,10 +60,12 @@ namespace CodingTracker.Service
                     }
                 }
                 AnsiConsole.Write(table);
+
+
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occured during the retrieval of coding sessions {ex.Message}");
+               AnsiConsole.MarkupLine($"[red]An error occured during the retrieval of coding sessions {ex.Message}[/]");
             }
         }
 
@@ -80,18 +85,18 @@ namespace CodingTracker.Service
                 bool success = _trackerDB.UpdateCodingSession(sessionModel);
                 if (success)
                 {
-                    Console.WriteLine($"Coding session with ID {id} updated successfully.");
+                   AnsiConsole.MarkupLine($"[green]Coding session with ID {id} updated successfully.[/]");
                 }
                 else
                 {
-                    Console.WriteLine($"No coding session found with ID {id}.");
+                   AnsiConsole.MarkupLine($"[red]No coding session found with ID {id}.[/]");
                 }
 
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occured during the update of coding sessions {ex.Message}");
+                AnsiConsole.MarkupLine($"[red]An error occured during the update of coding sessions {ex.Message}[/]");
             }
         }
 
@@ -103,16 +108,16 @@ namespace CodingTracker.Service
                 bool success = _trackerDB.DeleteCodingSession(id);
                 if (success)
                 {
-                    Console.WriteLine($"Coding session with ID {id} deleted successfully.");
+                    AnsiConsole.MarkupLine($"[green]Coding session with ID {id} deleted successfully.[/]");
                 }
                 else
                 {
-                    Console.WriteLine($"No coding session found with ID {id}.");
+                    AnsiConsole.MarkupLine($"[red]No coding session found with ID {id}.[/]");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occured during the deletion of coding sessions {ex.Message}");
+                AnsiConsole.MarkupLine($"[red]An error occured during the deletion of coding sessions {ex.Message}[/]");
             }
         }
     }

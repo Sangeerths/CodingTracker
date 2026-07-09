@@ -17,6 +17,7 @@ namespace CodingTracker.Controller
 
        public void Start()
         {
+            _service.CreateTables();
             bool exit = false;
             while (!exit)
             {
@@ -34,6 +35,7 @@ namespace CodingTracker.Controller
                 {
                     case '1':
                         _service.InsertCodingSession();
+                        
                         break;
                     case '2':
                         _service.GetCodingSessions();
@@ -54,6 +56,7 @@ namespace CodingTracker.Controller
                 }
                 AnsiConsole.WriteLine("Enter any Key to continue...");
                 Console.ReadKey();
+                Console.Clear(); 
             }
         }
 
