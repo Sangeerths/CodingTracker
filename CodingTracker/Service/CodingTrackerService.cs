@@ -41,7 +41,7 @@ namespace CodingTracker.Service
             {
                 var sessionList = _trackerDB.GetCodingSessions();
                 var table = new Table();
-                table.Title("[yellow]Habits [/]");
+                table.Title("[yellow]Coding Sessions [/]");
                 table.Border(TableBorder.Rounded);
                 table.AddColumn(new TableColumn("[bold]ID[/]").Centered());
                 table.AddColumn(new TableColumn("[bold]StartTime[/]").Centered());
