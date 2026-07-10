@@ -1,6 +1,7 @@
 ﻿using CodingTracker.Database;
 using CodingTracker.Models;
 using Spectre.Console;
+using System.Diagnostics;
 
 namespace CodingTracker.Service
 {
@@ -125,6 +126,81 @@ namespace CodingTracker.Service
             catch (Exception ex)
             {
                 AnsiConsole.MarkupLine($"[red]An error occured during the deletion of coding sessions {ex.Message}[/]");
+            }
+        }
+
+        public void TimeCodingSession()
+        {
+            AnsiConsole.MarkupLine("[yellow]Press SPACEBAR to Start/Stop.[/]");
+            AnsiConsole.MarkupLine("[blue]Press ESC to Exit.[/]");
+
+            Stopwatch stopwatch = new Stopwatch();
+            bool isRunning = false;
+            TimeSession session = new TimeSession();
+
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+                    if (keyInfo.Key == ConsoleKey.Spacebar)
+                    {
+                        if (!isRunning)
+                        {
+                            stopwatch.Restart();
+                            session.StartTime = DateTime.Now;
+                            isRunning = true;
+
+                            AnsiConsole.MarkupLine("[green]Session Started.[/]");
+                        }
+                        else
+                        {
+                            stopwatch.Stop();
+                            session.EndTime = DateTime.Now;
+                            isRunning = false;
+
+                            TimeSpan duration = session.EndTime - session.StartTime;
+
+                            AnsiConsole.MarkupLine("[red]Session Stopped.[/]");
+                            AnsiConsole.MarkupLine($"[cyan]Duration:[/] {duration:hh\\:mm\\:ss}");
+
+                            
+
+                            break;
+                        }
+                    }
+                    else if (keyInfo.Key == ConsoleKey.Escape)
+                    {
+                        if (isRunning)
+                        {
+                            stopwatch.Stop();
+                            session.EndTime = DateTime.Now;
+
+                            TimeSpan duration = session.EndTime - session.StartTime;
+
+                            AnsiConsole.MarkupLine("[yellow]Session cancelled.[/]");
+                            AnsiConsole.MarkupLine($"Duration: {duration:hh\\:mm\\:ss}");
+                            return;
+                        }
+
+                        break;
+                    }
+                }
+
+                Thread.Sleep(50);
+            }
+            string choice = AnsiConsole.Prompt(new SelectionPrompt<string>()
+                .Title("[yellow]Do you want to save this session?[/]")
+                .AddChoices(new[] { "Yes", "No" }));
+            if(choice == "Yes")
+            {
+                _trackerDB.InsertCodingSession(session);
+                AnsiConsole.MarkupLine("[green]Coding session saved successfully![/]");
+            }
+            else
+            {
+                AnsiConsole.MarkupLine("[red]Coding session not saved.[/]");
             }
         }
     }
