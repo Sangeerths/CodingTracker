@@ -73,7 +73,14 @@ namespace CodingTracker.Service
         {
             try
             {
+               
                 int id = _userValidation.ValidateUserInputId();
+                while (!_trackerDB.CodingSessionExists(id))
+                {
+                    AnsiConsole.MarkupLine($"[red]Invalid ID provided. Please enter a valid ID.[/]");
+                    id = _userValidation.ValidateUserInputId();
+                    Console.Clear();
+                }
                 TimeSession times = (TimeSession)_userValidation.ValidateUserInputTime();
                 CodingSessionModel sessionModel = new CodingSessionModel
                 {

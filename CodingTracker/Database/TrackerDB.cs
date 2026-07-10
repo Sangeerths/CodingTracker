@@ -79,5 +79,16 @@ namespace CodingTracker.Database
                 return rowsAffected > 0;
             }
         }
+
+        public bool CodingSessionExists(int id)
+        {
+            string sql = "SELECT COUNT(*) FROM CodingSessions WHERE Id = @Id;";
+
+            using var connection = new SqliteConnection(_connectionString);
+
+            int count = connection.ExecuteScalar<int>(sql, new { Id = id });
+
+            return count > 0;
+        }
     }
 }
