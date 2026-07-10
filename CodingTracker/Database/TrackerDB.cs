@@ -90,5 +90,77 @@ namespace CodingTracker.Database
 
             return count > 0;
         }
+
+        public List<CodingSessionModel> FilterCodingSessionsByDate(DateTime dateTime)
+        {
+            string sql = @"SELECT * FROM CodingSessions
+                   WHERE date(StartTime) = date(@dateTime);";
+
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<CodingSessionModel>(sql, new { dateTime }).ToList();
+            }
+        }
+        public List<CodingSessionModel> FilterCodingSessionsByWeek(DateTime dateTime)
+        {
+            string sql = @"SELECT * FROM CodingSessions WHERE strftime('%W', StartTime) = strftime('%W', @dateTime) AND strftime('%Y', StartTime) = strftime('%Y', @dateTime);";
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<CodingSessionModel>(sql, new { dateTime }).ToList();
+            }
+        }
+
+        public IEnumerable<CodingSessionModel> FilterCodingSessionsByMonth(int month)
+        {
+            string sql = @"
+        SELECT *
+        FROM CodingSessions
+        WHERE strftime('%m', StartTime) = printf('%02d', @month);";
+
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<CodingSessionModel>(sql, new { month }).ToList();
+            }
+        }
+
+        public IEnumerable<CodingSessionModel> FilterCodingSessionsByYear(int year)
+        {
+            string sql = @"
+        SELECT *
+        FROM CodingSessions
+        WHERE strftime('%Y', StartTime) = @Year;";
+
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<CodingSessionModel>(
+                    sql,
+                    new { Year = year.ToString() });
+            }
+        }
+
+        public List<CodingSessionModel> SortCodingSession(string sortBy)
+        {
+            StringBuilder sql = new StringBuilder();
+            if(sortBy == "Ascending")
+            {
+                 sql.Append(@"SELECT * FROM CodingSessions ORDER BY StartTime ASC;");
+                
+            }
+            else if (sortBy == "Descending")
+            {
+                 sql.Append(@"SELECT * FROM CodingSessions ORDER BY StartTime DESC;");
+                
+            }
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<CodingSessionModel>(sql.ToString()).ToList();
+            }
+
+        }
     }
 }

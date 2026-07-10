@@ -77,6 +77,59 @@ namespace CodingTracker.Service
             return result;
         }
 
-       
+       public DateTime ValidateDate()
+        {
+            bool isValid = false;
+            DateTime final ;
+            while(!isValid)
+            {
+                AnsiConsole.MarkupLine("[Magenta]Enter the date (yyyy-MM-dd):[/]");
+                string input = Console.ReadLine();
+                if (!DateTime.TryParseExact(input, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out final))
+                {
+                    AnsiConsole.MarkupLine("[red]Invalid date format. Please try again.[/]");
+                    continue;
+                }
+                isValid = true;
+                return final;
+            }
+            return DateTime.MinValue;
+
+        }
+        public int ValidateMonth()
+        {
+            bool isValid = false;
+            while (!isValid)
+            {
+                AnsiConsole.MarkupLine("[Magenta]Enter the month (1-12):[/]");
+                string input = Console.ReadLine();
+                if (!int.TryParse(input, out int month) || month < 1 || month > 12)
+                {
+                    AnsiConsole.MarkupLine("[red]Invalid month. Please enter a number between 1 and 12.[/]");
+                    continue;
+                }
+                isValid = true;
+                return month;
+            }
+            return 0;
+        }
+
+        public int ValidateYear()
+        {
+            bool isValid = false;
+            while (!isValid)
+            {
+                AnsiConsole.MarkupLine("[Magenta]Enter the year (e.g., 2023):[/]");
+                string input = Console.ReadLine();
+                if (!int.TryParse(input, out int year) || year < 1)
+                {
+                    AnsiConsole.MarkupLine("[red]Invalid year. Please enter a valid positive integer.[/]");
+                    continue;
+                }
+                isValid = true;
+                return year;
+            }
+            return 0;
+        }
     }
 }

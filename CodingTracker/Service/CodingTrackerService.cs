@@ -45,19 +45,23 @@ namespace CodingTracker.Service
                 table.Title("[yellow]Coding Sessions [/]");
                 table.Border(TableBorder.Rounded);
                 table.AddColumn(new TableColumn("[bold]ID[/]").Centered());
-                table.AddColumn(new TableColumn("[bold]StartTime[/]").Centered());
-                table.AddColumn(new TableColumn("[bold]EndTime[/]").Centered());
-                table.AddColumn(new TableColumn("[bold]Duration(hrs)[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]Start Date[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]Start Time[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]End Date[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]End Time[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]Duration[/]").Centered());
                 foreach (var list in sessionList)
                 {
                     foreach (var session in list)
                     {
                         table.AddRow(
-                            session.Id.ToString(),
-                            session.startTime.ToString(" HH:mm:ss"),
-                            session.endTime.ToString("HH:mm:ss"),
-                            session.duration.ToString()
-                        );
+     session.Id.ToString(),
+     session.startTime.ToString("dd-MMM-yyyy"),
+     session.startTime.ToString("HH:mm:ss"),
+     session.endTime.ToString("dd-MMM-yyyy"),
+     session.endTime.ToString("HH:mm:ss"),
+     session.duration.ToString()
+ );
                     }
                 }
                 AnsiConsole.Write(table);
@@ -202,6 +206,72 @@ namespace CodingTracker.Service
             {
                 AnsiConsole.MarkupLine("[red]Coding session not saved.[/]");
             }
+        }
+
+        public void FilterCodingSessions()
+        {
+            string choice = AnsiConsole.Prompt(new SelectionPrompt<string>().Title("Filter Coding Session").AddChoices(new[] { "1. Filter by Date", "2. Filter by Week", "3.Filter by Month","4.Filter by Year", "5.Sort Session", "6.Back" }));
+            char currentChoice = choice[0];
+            List<CodingSessionModel> session = new List<CodingSessionModel>();
+            switch(currentChoice)
+            {
+                case '1':
+                    DateTime date = (DateTime)_userValidation.ValidateDate();
+                    session = (List<CodingSessionModel>)_trackerDB.FilterCodingSessionsByDate(date);
+                    break;
+                case '2':
+                    DateTime weekDate = (DateTime)_userValidation.ValidateDate();
+                    session = (List<CodingSessionModel>)_trackerDB.FilterCodingSessionsByWeek(weekDate);
+                    break;
+                case '3':
+                    int month = _userValidation.ValidateMonth();
+                    session = (List<CodingSessionModel>)_trackerDB.FilterCodingSessionsByMonth(month);
+                    break;
+                case '4':
+                    int year = _userValidation.ValidateYear();
+                    session = (List<CodingSessionModel>)_trackerDB.FilterCodingSessionsByYear(year);
+                    break;
+                case '5':
+                    string sortChoice = AnsiConsole.Prompt(new SelectionPrompt<string>().Title("Sort Coding Session").AddChoices(new[] { "Ascending", "Descending" }));
+                    session = (List<CodingSessionModel>)_trackerDB.SortCodingSession(sortChoice);
+                    break;
+                case '6':
+                    return;
+                default:
+                    AnsiConsole.WriteLine("[red]Invalid choice. Please try again.[/]");
+                    break;
+
+            }
+            if (session != null)
+            {
+                var table = new Table();
+                table.Title("[green]Filtered Coding Sessions[/]");
+                table.Border(TableBorder.Rounded);
+                table.AddColumn(new TableColumn("[bold]ID[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]Start Date[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]Start Time[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]End Date[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]End Time[/]").Centered());
+                table.AddColumn(new TableColumn("[bold]Duration[/]").Centered());
+
+                foreach (var sessionModel in session)
+                {
+                    table.AddRow(
+     sessionModel.Id.ToString(),
+     sessionModel.startTime.ToString("dd-MMM-yyyy"),
+     sessionModel.startTime.ToString("HH:mm:ss"),
+     sessionModel.endTime.ToString("dd-MMM-yyyy"),
+     sessionModel.endTime.ToString("HH:mm:ss"),
+     sessionModel.duration.ToString()
+ );
+                }
+                AnsiConsole.Write(table);
+
+            }
+            else
+            {
+                AnsiConsole.MarkupLine("[red]No coding sessions found for the specified filter.[/]");
+            } 
         }
     }
 }
