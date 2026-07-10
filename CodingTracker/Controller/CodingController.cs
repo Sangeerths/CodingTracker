@@ -28,7 +28,8 @@ namespace CodingTracker.Controller
                             "2. View Coding Sessions",
                             "3. Update Coding Session",
                             "4. Delete Coding Session",
-                            "5. Exit"
+                            "5. Time Coding Session",
+                            "6. Exit"
                         }));
                char currentChoice = choice[0];
                 switch (currentChoice)
@@ -47,6 +48,9 @@ namespace CodingTracker.Controller
                         _service.DeleteCodingSession();
                         break;
                     case '5':
+                        _service.TimeCodingSession();
+                        break; 
+                    case '6':
                         exit = true;
                         break;
 
