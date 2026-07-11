@@ -62,7 +62,7 @@ namespace CodingTracker.Controller
                         Console.WriteLine("Invalid option. Please try again.");
                         break;
                 }
-                AnsiConsole.WriteLine("Enter any Key to continue...");
+                AnsiConsole.WriteLine("\nEnter any Key to continue...");
                 Console.ReadKey();
                 Console.Clear(); 
             }
