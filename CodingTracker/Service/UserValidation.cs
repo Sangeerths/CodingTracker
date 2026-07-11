@@ -9,12 +9,9 @@ namespace CodingTracker.Service
 {
     public class UserValidation
     {
-        public TimeSession ValidateUserInputTime()
+        public TimeSession? ValidateUserInputTime()
         {
-            bool isValid = false;
-
-            while (!isValid)
-            {
+           
 
                 AnsiConsole.MarkupLine("[Magenta]Enter the start Date (yyyy-MM-dd):[/]");
                 StringBuilder startTimeInput = new StringBuilder();
@@ -26,7 +23,8 @@ namespace CodingTracker.Service
                 if (!DateTime.TryParseExact(startTimeInput.ToString(),"yyyy-MM-dd HH:mm:ss",CultureInfo.InvariantCulture, DateTimeStyles.None,  out startTime))
                 {
                    AnsiConsole.MarkupLine("[red]Invalid start time format. Please try again.[/]");
-                    continue;
+                    return null;
+                    
                 }
                 AnsiConsole.MarkupLine("[Magenta]Enter the end Date (yyyy-MM-dd):[/]");
                 StringBuilder endTimeInput = new StringBuilder();
@@ -38,12 +36,13 @@ namespace CodingTracker.Service
                 if (!DateTime.TryParseExact(endTimeInput.ToString(), "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out endTime))
                 {
                    AnsiConsole.MarkupLine("[red]Invalid end time format. Please try again.[/]");
-                    continue;
+                return null;
+                   
                 }
                 if (endTime <= startTime)
                 {
                     AnsiConsole.MarkupLine("[red]End time must be after start time. Please try again.[/]");
-                    continue;
+                return null;
                 }
                 float duration = (float)(endTime - startTime).TotalHours;
                 var timeSession = new TimeSession
@@ -53,10 +52,9 @@ namespace CodingTracker.Service
                     EndTime = endTime,
                     Duration = duration
                 };
-                isValid = true;
-                return timeSession;
-            }
-            return null;
+               
+                return timeSession;   
+           
         }
 
         public int ValidateUserInputId()
@@ -90,6 +88,7 @@ namespace CodingTracker.Service
                     AnsiConsole.MarkupLine("[red]Invalid date format. Please try again.[/]");
                     continue;
                 }
+
                 isValid = true;
                 return final;
             }

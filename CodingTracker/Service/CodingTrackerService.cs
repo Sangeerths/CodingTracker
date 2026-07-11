@@ -24,9 +24,29 @@ namespace CodingTracker.Service
         {
             try
             {
-                TimeSession times = (TimeSession)_userValidation.ValidateUserInputTime();
-                _trackerDB.InsertCodingSession(times);
-                AnsiConsole.MarkupLine("[green]Coding session inserted successfully![/]");
+                bool isValidInput = false;
+                TimeSession times = new TimeSession();
+                while (!isValidInput)
+                {
+                     times = (TimeSession)_userValidation.ValidateUserInputTime();
+                    if (times != null)
+                    {
+                        AnsiConsole.MarkupLine("[green]Valid input received.[/]");
+                        isValidInput = true;
+                    }
+                    else
+                    {
+                        AnsiConsole.MarkupLine("[blue]Press any key. Press ESC to exit the application.[/]");
+                        var keyInfo = Console.ReadKey(intercept: true);
+                        if (keyInfo.Key == ConsoleKey.Escape)
+                        {
+                            return;
+                        }
+                    }
+
+                }
+                    _trackerDB.InsertCodingSession(times);
+                AnsiConsole.MarkupLine("\n[green]Coding session inserted successfully![/]");
                 
 
             }
@@ -78,15 +98,41 @@ namespace CodingTracker.Service
         {
             try
             {
-               
+                
                 int id = _userValidation.ValidateUserInputId();
                 while (!_trackerDB.CodingSessionExists(id))
                 {
-                    AnsiConsole.MarkupLine($"[red]Invalid ID provided. Please enter a valid ID.[/]");
+                    AnsiConsole.MarkupLine($"[red]Invalid ID provided. Please enter a valid ID. To go Back press ESC[/]");
+                    var keyInfo = Console.ReadKey(intercept: true);
+                    if (keyInfo.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
+
                     id = _userValidation.ValidateUserInputId();
                     Console.Clear();
                 }
-                TimeSession times = (TimeSession)_userValidation.ValidateUserInputTime();
+                bool isValidInput = false;
+                TimeSession times = new TimeSession();
+                while (!isValidInput)
+                {
+                    times = (TimeSession)_userValidation.ValidateUserInputTime();
+                    if (times != null)
+                    {
+                        AnsiConsole.MarkupLine("[green]Valid input received.[/]");
+                        isValidInput = true;
+                    }
+                    else
+                    {
+                        AnsiConsole.MarkupLine("[blue]Press any key. Press ESC to exit the application.[/]");
+                        var keyInfo = Console.ReadKey(intercept: true);
+                        if (keyInfo.Key == ConsoleKey.Escape)
+                        {
+                            return;
+                        }
+                    }
+                }
+                  
                 CodingSessionModel sessionModel = new CodingSessionModel
                 {
                     Id = id.ToString(),
