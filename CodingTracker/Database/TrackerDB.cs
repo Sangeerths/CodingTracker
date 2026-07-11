@@ -91,7 +91,7 @@ namespace CodingTracker.Database
             return count > 0;
         }
 
-        public List<CodingSessionModel> FilterCodingSessionsByDate(DateTime dateTime)
+        public List<CodingSessionModel> FilterCodingSessionsByDate(DateTime? dateTime)
         {
             string sql = @"SELECT * FROM CodingSessions
                    WHERE date(StartTime) = date(@dateTime);";
@@ -102,7 +102,7 @@ namespace CodingTracker.Database
                 return connection.Query<CodingSessionModel>(sql, new { dateTime }).ToList();
             }
         }
-        public List<CodingSessionModel> FilterCodingSessionsByWeek(DateTime dateTime)
+        public List<CodingSessionModel> FilterCodingSessionsByWeek(DateTime? dateTime)
         {
             string sql = @"SELECT * FROM CodingSessions WHERE strftime('%W', StartTime) = strftime('%W', @dateTime) AND strftime('%Y', StartTime) = strftime('%Y', @dateTime);";
             using (var connection = new SqliteConnection(_connectionString))
