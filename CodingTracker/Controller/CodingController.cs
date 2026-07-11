@@ -18,9 +18,11 @@ namespace CodingTracker.Controller
        public void Start()
         {
             _service.CreateTables();
+           
             bool exit = false;
             while (!exit)
             {
+                _service.ShowHeader();
                 string choice = AnsiConsole.Prompt(new SelectionPrompt<string>()
                         .Title("Select an option:")
                         .AddChoices(new[] {
@@ -56,16 +58,17 @@ namespace CodingTracker.Controller
                         break;
                     case '7':
                         exit = true;
+
                         break;
 
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
                         break;
                 }
-                AnsiConsole.WriteLine("\nEnter any Key to continue...");
-                Console.ReadKey();
-                Console.Clear(); 
+                Console.Clear();
+               
             }
+            AnsiConsole.MarkupLine("[bold yellow]Goodbye![/]");
         }
 
 

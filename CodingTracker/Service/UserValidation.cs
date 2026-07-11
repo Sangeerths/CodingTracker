@@ -22,7 +22,7 @@ namespace CodingTracker.Service
                 DateTime startTime;
                 if (!DateTime.TryParseExact(startTimeInput.ToString(),"yyyy-MM-dd HH:mm:ss",CultureInfo.InvariantCulture, DateTimeStyles.None,  out startTime))
                 {
-                   AnsiConsole.MarkupLine("[red]Invalid start time format. Please try again.[/]");
+                   AnsiConsole.MarkupLine("[red]Invalid time format. Please try again.[/]");
                     return null;
                     
                 }
@@ -35,7 +35,7 @@ namespace CodingTracker.Service
                 DateTime endTime;
                 if (!DateTime.TryParseExact(endTimeInput.ToString(), "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out endTime))
                 {
-                   AnsiConsole.MarkupLine("[red]Invalid end time format. Please try again.[/]");
+                   AnsiConsole.MarkupLine("[red]Invalid  time format. Please try again.[/]");
                 return null;
                    
                 }
@@ -57,78 +57,60 @@ namespace CodingTracker.Service
            
         }
 
-        public int ValidateUserInputId()
+        public int  ValidateUserInputId()
         {
             bool isValid = false;
-            int result = 0;
-            while (!isValid)
-            {
+            int result = -1;
+           
                 AnsiConsole.MarkupLine("[Magenta]Enter the ID[/]");
                 string input = Console.ReadLine();
                 if (!int.TryParse(input, out result) || result <=0)
                 {
                    AnsiConsole.MarkupLine("[red]Invalid. Please enter a valid integer.[/]");
-                    continue;
                 }
-                isValid = true;
-            }
+                
+            
             return result;
         }
 
-       public DateTime ValidateDate()
+        public DateTime? ValidateDate()
         {
-            bool isValid = false;
-            DateTime final ;
-            while(!isValid)
+            AnsiConsole.MarkupLine("[Magenta]Enter the date (yyyy-MM-dd):[/]");
+            string input = Console.ReadLine();
+
+            if (!DateTime.TryParseExact(input, "yyyy-MM-dd", CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out DateTime parsedDate))
             {
-                AnsiConsole.MarkupLine("[Magenta]Enter the date (yyyy-MM-dd):[/]");
-                string input = Console.ReadLine();
-                if (!DateTime.TryParseExact(input, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out final))
-                {
-                    AnsiConsole.MarkupLine("[red]Invalid date format. Please try again.[/]");
-                    continue;
-                }
-
-                isValid = true;
-                return final;
+                AnsiConsole.MarkupLine("[red]Invalid date format. Please try again.[/]");
+                return null;
             }
-            return DateTime.MinValue;
 
+            return parsedDate;
         }
         public int ValidateMonth()
         {
-            bool isValid = false;
-            while (!isValid)
-            {
-                AnsiConsole.MarkupLine("[Magenta]Enter the month (1-12):[/]");
+            int month = 0;
+            AnsiConsole.MarkupLine("[Magenta]Enter the month (1-12):[/]");
                 string input = Console.ReadLine();
-                if (!int.TryParse(input, out int month) || month < 1 || month > 12)
+                if (!int.TryParse(input, out  month) || month < 1 || month > 12)
                 {
                     AnsiConsole.MarkupLine("[red]Invalid month. Please enter a number between 1 and 12.[/]");
-                    continue;
+                    return -1;
                 }
-                isValid = true;
-                return month;
-            }
-            return 0;
+            return month;
         }
 
         public int ValidateYear()
         {
-            bool isValid = false;
-            while (!isValid)
-            {
                 AnsiConsole.MarkupLine("[Magenta]Enter the year (e.g., 2023):[/]");
                 string input = Console.ReadLine();
                 if (!int.TryParse(input, out int year) || year < 1)
                 {
                     AnsiConsole.MarkupLine("[red]Invalid year. Please enter a valid positive integer.[/]");
-                    continue;
+                return -1;
                 }
-                isValid = true;
+
                 return year;
-            }
-            return 0;
         }
     }
 }

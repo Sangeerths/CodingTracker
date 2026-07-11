@@ -40,19 +40,23 @@ namespace CodingTracker.Service
                         var keyInfo = Console.ReadKey(intercept: true);
                         if (keyInfo.Key == ConsoleKey.Escape)
                         {
+                            
                             return;
                         }
+                        Console.Clear();
                     }
 
                 }
                     _trackerDB.InsertCodingSession(times);
                 AnsiConsole.MarkupLine("\n[green]Coding session inserted successfully![/]");
+                Exit();
                 
 
             }
             catch (Exception ex)
             {
                 AnsiConsole.MarkupLine($"[red]An error occured during the Insertion {ex.Message}[/]");
+                Exit();
             }
         }
 
@@ -85,12 +89,13 @@ namespace CodingTracker.Service
                     }
                 }
                 AnsiConsole.Write(table);
-
+                Exit();
 
             }
             catch (Exception ex)
             {
                AnsiConsole.MarkupLine($"[red]An error occured during the retrieval of coding sessions {ex.Message}[/]");
+                Exit();
             }
         }
 
@@ -100,23 +105,36 @@ namespace CodingTracker.Service
             {
                 
                 int id = _userValidation.ValidateUserInputId();
+                while(id == 0)
+                {
+                    AnsiConsole.MarkupLine($"[blue]Press any key to continue. To go Back press ESC[/]");
+                    var keyInfo = Console.ReadKey(intercept: true);
+                    if (keyInfo.Key == ConsoleKey.Escape)
+                    {
+
+                        return;
+                    }
+                    Console.Clear();
+                    id = _userValidation.ValidateUserInputId();
+                }
                 while (!_trackerDB.CodingSessionExists(id))
                 {
                     AnsiConsole.MarkupLine($"[red]Invalid ID provided. Please enter a valid ID. To go Back press ESC[/]");
                     var keyInfo = Console.ReadKey(intercept: true);
                     if (keyInfo.Key == ConsoleKey.Escape)
                     {
+                        
                         return;
                     }
-
-                    id = _userValidation.ValidateUserInputId();
                     Console.Clear();
+                    id = _userValidation.ValidateUserInputId();
+                    
                 }
                 bool isValidInput = false;
                 TimeSession times = new TimeSession();
                 while (!isValidInput)
                 {
-                    times = (TimeSession)_userValidation.ValidateUserInputTime();
+                    times = _userValidation.ValidateUserInputTime();
                     if (times != null)
                     {
                         AnsiConsole.MarkupLine("[green]Valid input received.[/]");
@@ -127,9 +145,11 @@ namespace CodingTracker.Service
                         AnsiConsole.MarkupLine("[blue]Press any key. Press ESC to exit the application.[/]");
                         var keyInfo = Console.ReadKey(intercept: true);
                         if (keyInfo.Key == ConsoleKey.Escape)
-                        {
+                        { 
                             return;
                         }
+                        Console.Clear();
+                        AnsiConsole.MarkupLine($"[yellow]Enter valid Start and End times for the coding session with ID {id}.[/]");
                     }
                 }
                   
@@ -143,18 +163,19 @@ namespace CodingTracker.Service
                 bool success = _trackerDB.UpdateCodingSession(sessionModel);
                 if (success)
                 {
-                   AnsiConsole.MarkupLine($"[green]Coding session with ID {id} updated successfully.[/]");
+                   AnsiConsole.MarkupLine($"[green]\nCoding session with ID {id} updated successfully.[/]");
                 }
                 else
                 {
-                   AnsiConsole.MarkupLine($"[red]No coding session found with ID {id}.[/]");
+                   AnsiConsole.MarkupLine($"[red]\nNo coding session found with ID {id}.[/]");
                 }
-
-
+                Exit();
+                
             }
             catch (Exception ex)
             {
                 AnsiConsole.MarkupLine($"[red]An error occured during the update of coding sessions {ex.Message}[/]");
+                Exit();
             }
         }
 
@@ -162,7 +183,19 @@ namespace CodingTracker.Service
         {
             try
             {
+                
                 int id = _userValidation.ValidateUserInputId();
+                while (id == 0)
+                {
+                    AnsiConsole.MarkupLine("[blue]Press any key. Press ESC to exit the application.[/]");
+                    var keyInfo = Console.ReadKey(intercept: true);
+                    if (keyInfo.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
+                    Console.Clear();
+                    id = _userValidation.ValidateUserInputId();
+                }
                 bool success = _trackerDB.DeleteCodingSession(id);
                 if (success)
                 {
@@ -172,10 +205,12 @@ namespace CodingTracker.Service
                 {
                     AnsiConsole.MarkupLine($"[red]No coding session found with ID {id}.[/]");
                 }
+                Exit();
             }
             catch (Exception ex)
             {
                 AnsiConsole.MarkupLine($"[red]An error occured during the deletion of coding sessions {ex.Message}[/]");
+                Exit();
             }
         }
 
@@ -233,8 +268,13 @@ namespace CodingTracker.Service
                             AnsiConsole.MarkupLine($"Duration: {duration:hh\\:mm\\:ss}");
                             return;
                         }
+                        else
+                        {
+                            AnsiConsole.MarkupLine("[yellow]Session cancelled. Nothing was timed.[/]");
+                        }
 
-                        break;
+                        return;
+                       
                     }
                 }
 
@@ -252,6 +292,7 @@ namespace CodingTracker.Service
             {
                 AnsiConsole.MarkupLine("[red]Coding session not saved.[/]");
             }
+            Exit();
         }
 
         public void FilterCodingSessions()
@@ -262,24 +303,70 @@ namespace CodingTracker.Service
             switch(currentChoice)
             {
                 case '1':
-                    DateTime date = (DateTime)_userValidation.ValidateDate();
-                    session = (List<CodingSessionModel>)_trackerDB.FilterCodingSessionsByDate(date);
+                    DateTime? date = _userValidation.ValidateDate();
+                    while (date == null)
+                    {
+                        AnsiConsole.MarkupLine("[blue]Press any key. Press ESC to exit the application.[/]");
+                        var keyInfo = Console.ReadKey(intercept: true);
+                        if (keyInfo.Key == ConsoleKey.Escape)
+                        {
+                            return;
+                        }
+                        Console.Clear();
+                        date = _userValidation.ValidateDate();
+                    }
+                    Console.Clear();
+                    session = _trackerDB.FilterCodingSessionsByDate(date);
+                    
                     break;
                 case '2':
-                    DateTime weekDate = (DateTime)_userValidation.ValidateDate();
-                    session = (List<CodingSessionModel>)_trackerDB.FilterCodingSessionsByWeek(weekDate);
+                    DateTime? weekDate = _userValidation.ValidateDate();
+                    while(weekDate == null)
+                    {
+                        AnsiConsole.MarkupLine("[blue]Press any key. Press ESC to exit the application.[/]");
+                        var keyInfo = Console.ReadKey(intercept: true);
+                        if (keyInfo.Key == ConsoleKey.Escape)
+                        {
+                            return;
+                        }
+                        Console.Clear();
+                        weekDate = _userValidation.ValidateDate();
+                    }
+                    session = _trackerDB.FilterCodingSessionsByWeek(weekDate);
                     break;
                 case '3':
                     int month = _userValidation.ValidateMonth();
+                    while(month ==-1)
+                    {
+                        AnsiConsole.MarkupLine("[blue]Press any key. Press ESC to exit the application.[/]");
+                        var keyInfo = Console.ReadKey(intercept: true);
+                        if (keyInfo.Key == ConsoleKey.Escape)
+                        {
+                            return;
+                        }
+                        Console.Clear();
+                        month = _userValidation.ValidateMonth();
+                    }
                     session = (List<CodingSessionModel>)_trackerDB.FilterCodingSessionsByMonth(month);
                     break;
                 case '4':
                     int year = _userValidation.ValidateYear();
+                    while (year == -1)
+                    {
+                        AnsiConsole.MarkupLine("[blue]Press any key. Press ESC to exit the application.[/]");
+                        var keyInfo = Console.ReadKey(intercept: true);
+                        if (keyInfo.Key == ConsoleKey.Escape)
+                        {
+                            return;
+                        }
+                        Console.Clear();
+                        year = _userValidation.ValidateYear();
+                    }  
                     session = (List<CodingSessionModel>)_trackerDB.FilterCodingSessionsByYear(year);
                     break;
                 case '5':
                     string sortChoice = AnsiConsole.Prompt(new SelectionPrompt<string>().Title("Sort Coding Session").AddChoices(new[] { "Ascending", "Descending" }));
-                    session = (List<CodingSessionModel>)_trackerDB.SortCodingSession(sortChoice);
+                    session = _trackerDB.SortCodingSession(sortChoice);
                     break;
                 case '6':
                     return;
@@ -288,7 +375,7 @@ namespace CodingTracker.Service
                     break;
 
             }
-            if (session != null)
+            if (session.Count >0)
             {
                 var table = new Table();
                 table.Title("[green]Filtered Coding Sessions[/]");
@@ -317,7 +404,20 @@ namespace CodingTracker.Service
             else
             {
                 AnsiConsole.MarkupLine("[red]No coding sessions found for the specified filter.[/]");
-            } 
+            }
+            Exit();
+        }
+        public  void ShowHeader()
+        {
+            AnsiConsole.Write(new Rule().RuleStyle("grey"));
+            AnsiConsole.Write(new FigletText("CodingTracker").Centered().Color(Color.Green));
+            AnsiConsole.Write(new Rule().RuleStyle("grey"));
+        }
+        public void Exit()
+        {
+            AnsiConsole.WriteLine("\nEnter any Key to continue...");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }
