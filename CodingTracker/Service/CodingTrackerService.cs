@@ -222,7 +222,7 @@ namespace CodingTracker.Service
             Stopwatch stopwatch = new Stopwatch();
             bool isRunning = false;
             TimeSession session = new TimeSession();
-
+            TimeSpan duration = new TimeSpan();
             while (true)
             {
                 if (Console.KeyAvailable)
@@ -245,7 +245,8 @@ namespace CodingTracker.Service
                             session.EndTime = DateTime.Now;
                             isRunning = false;
 
-                            TimeSpan duration = session.EndTime - session.StartTime;
+                            duration = session.EndTime - session.StartTime;
+                            session.Duration = duration.Hours;
 
                             AnsiConsole.MarkupLine("[red]Session Stopped.[/]");
                             AnsiConsole.MarkupLine($"[cyan]Duration:[/] {duration:hh\\:mm\\:ss}");
@@ -262,7 +263,7 @@ namespace CodingTracker.Service
                             stopwatch.Stop();
                             session.EndTime = DateTime.Now;
 
-                            TimeSpan duration = session.EndTime - session.StartTime;
+                            duration = session.EndTime - session.StartTime;
 
                             AnsiConsole.MarkupLine("[yellow]Session cancelled.[/]");
                             AnsiConsole.MarkupLine($"Duration: {duration:hh\\:mm\\:ss}");
@@ -285,6 +286,7 @@ namespace CodingTracker.Service
                 .AddChoices(new[] { "Yes", "No" }));
             if(choice == "Yes")
             {
+                session.Duration = (float)duration.TotalHours;
                 _trackerDB.InsertCodingSession(session);
                 AnsiConsole.MarkupLine("[green]Coding session saved successfully![/]");
             }
