@@ -1,0 +1,136 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Learning\\CodingTracker\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|c:\\learning\\codingtracker\\codingtracker\\service\\codingtrackerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|solutionrelative:codingtracker\\service\\codingtrackerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|c:\\learning\\codingtracker\\codingtracker\\controller\\codingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|solutionrelative:codingtracker\\controller\\codingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|c:\\learning\\codingtracker\\codingtracker\\database\\trackerdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|solutionrelative:codingtracker\\database\\trackerdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|c:\\learning\\codingtracker\\codingtracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|solutionrelative:codingtracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|c:\\learning\\codingtracker\\codingtracker\\service\\uservalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|solutionrelative:codingtracker\\service\\uservalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|c:\\learning\\codingtracker\\codingtracker\\models\\codingsessionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|solutionrelative:codingtracker\\models\\codingsessionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|c:\\learning\\codingtracker\\codingtracker\\models\\timesession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F666B48-42BA-6755-7F77-943F9C1863F8}|CodingTracker\\CodingTracker.csproj|solutionrelative:codingtracker\\models\\timesession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CodingTrackerService.cs",
+              "DocumentMoniker": "C:\\Learning\\CodingTracker\\CodingTracker\\Service\\CodingTrackerService.cs",
+              "RelativeDocumentMoniker": "CodingTracker\\Service\\CodingTrackerService.cs",
+              "ToolTip": "C:\\Learning\\CodingTracker\\CodingTracker\\Service\\CodingTrackerService.cs*",
+              "RelativeToolTip": "CodingTracker\\Service\\CodingTrackerService.cs*",
+              "ViewState": "AgIAAAwBAAAAAAAAAAAWwCABAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-10T16:13:29.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CodingController.cs",
+              "DocumentMoniker": "C:\\Learning\\CodingTracker\\CodingTracker\\Controller\\CodingController.cs",
+              "RelativeDocumentMoniker": "CodingTracker\\Controller\\CodingController.cs",
+              "ToolTip": "C:\\Learning\\CodingTracker\\CodingTracker\\Controller\\CodingController.cs",
+              "RelativeToolTip": "CodingTracker\\Controller\\CodingController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAIwE0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T17:55:12.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserValidation.cs",
+              "DocumentMoniker": "C:\\Learning\\CodingTracker\\CodingTracker\\Service\\UserValidation.cs",
+              "RelativeDocumentMoniker": "CodingTracker\\Service\\UserValidation.cs",
+              "ToolTip": "C:\\Learning\\CodingTracker\\CodingTracker\\Service\\UserValidation.cs",
+              "RelativeToolTip": "CodingTracker\\Service\\UserValidation.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAwwHMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T17:43:09.401Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TrackerDB.cs",
+              "DocumentMoniker": "C:\\Learning\\CodingTracker\\CodingTracker\\Database\\TrackerDB.cs",
+              "RelativeDocumentMoniker": "CodingTracker\\Database\\TrackerDB.cs",
+              "ToolTip": "C:\\Learning\\CodingTracker\\CodingTracker\\Database\\TrackerDB.cs",
+              "RelativeToolTip": "CodingTracker\\Database\\TrackerDB.cs",
+              "ViewState": "AgIAAIoAAAAAAAAAAADwv6YAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T17:15:10.152Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Learning\\CodingTracker\\CodingTracker\\Program.cs",
+              "RelativeDocumentMoniker": "CodingTracker\\Program.cs",
+              "ToolTip": "C:\\Learning\\CodingTracker\\CodingTracker\\Program.cs",
+              "RelativeToolTip": "CodingTracker\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T17:07:03.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CodingSessionModel.cs",
+              "DocumentMoniker": "C:\\Learning\\CodingTracker\\CodingTracker\\Models\\CodingSessionModel.cs",
+              "RelativeDocumentMoniker": "CodingTracker\\Models\\CodingSessionModel.cs",
+              "ToolTip": "C:\\Learning\\CodingTracker\\CodingTracker\\Models\\CodingSessionModel.cs",
+              "RelativeToolTip": "CodingTracker\\Models\\CodingSessionModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-07T17:17:43.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TimeSession.cs",
+              "DocumentMoniker": "C:\\Learning\\CodingTracker\\CodingTracker\\Models\\TimeSession.cs",
+              "RelativeDocumentMoniker": "CodingTracker\\Models\\TimeSession.cs",
+              "ToolTip": "C:\\Learning\\CodingTracker\\CodingTracker\\Models\\TimeSession.cs",
+              "RelativeToolTip": "CodingTracker\\Models\\TimeSession.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-10T16:49:36.722Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
